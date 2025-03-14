@@ -1,3 +1,22 @@
+/* App.css */
+body {
+  background-color: #161821; /* Ayu Dark background color */
+  color: #c7c7c7; /* Ayu Dark text color */
+}
+
+.user-profile-setup {
+  background-color: #262b3a;
+  /* Other styles... */
+}
+
+
+
+
+
+
+
+
+
 #root {
   max-width: 1280px;
   margin: 0 auto;
