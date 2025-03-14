@@ -3,7 +3,7 @@
 This repository contains the frontend code for an AI-powered crop disease detection platform. The platform allows users to interact with the AI model to detect diseases in crops through a user-friendly interface. The frontend is built using **Vite**, **React**, **Tailwind CSS**, and **Lucid React**.
 
 
-[LIVE](https://crop-clinic.netlify.app/)
+
 
 ## Features
 
