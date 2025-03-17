@@ -9,70 +9,104 @@ function ImageAnalysis() {
 
   const handlePredict = () => {
     if (selectedFile) {
-      // Logic to handle the file upload and prediction
       console.log("File to upload:", selectedFile);
-      // You'll need to implement the actual upload and prediction logic here.
-      // This might involve sending the file to a backend API.
+      // Implement your upload and prediction logic here
     } else {
       alert("Please select a file to upload.");
     }
   };
 
   const ayuDarkStyle = {
-    backgroundColor: "#151718", // Dark background
-    color: "#cdd6f4", // Light text
+    backgroundColor: "#151718", // Fallback dark background
+    color: "#cdd6f4",
     minHeight: "100vh",
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
-    fontFamily: "monospace", // Ayu Dark often uses monospace fonts
+    fontFamily: "monospace",
+    backgroundImage: "url('https://wallpaperbat.com/img/319677-agriculture-desktop-wallpaper.jpg')",
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+    margin: 0,
   };
 
   const cardStyle = {
-    padding: "30px",
-    borderRadius: "15px",
-    boxShadow: "0 4px 8px rgba(0, 0, 0, 0.5)", // Darker shadow
-    backgroundColor: "#26292b", // Slightly lighter dark background for the card
-    border: "1px solid #4c566a", // Darker border
-    width: "350px", // Adjust width as needed
+    padding: "70px",
+    borderRadius: "30px",
+    boxShadow: "0 4px 8px rgba(0, 0, 0, 0.5)",
+    backgroundColor: "transparent", // Make the card transparent
+    border: "2px dashed #cdd6f4", // Dashed border for the upload area
+    width: "400px",
     textAlign: "center",
-  };
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center", // Center content vertically
+  }
 
   const inputStyle = {
-    padding: "10px",
-    border: "1px solid #4c566a",
-    borderRadius: "5px",
-    marginBottom: "20px",
-    backgroundColor: "#1e2022", // Darker input background
-    color: "#cdd6f4",
-    width: "100%",
+    display: "none", // Hide the default file input
+  };
+
+  const buttonContainerStyle = {
+    width: "fit-content", 
+    margin: "20px auto 0 auto",     // Center the container horizontally and add top margin
   };
 
   const buttonStyle = {
     padding: "15px 30px",
-    background: "linear-gradient(to right, #61afef, #4078c0)", // Blue gradient for contrast
-    color: "#cdd6f4",
-    border: "none",
-    borderRadius: "10px",
+    borderRadius: "30px",
+    boxShadow: "0 4px 8px rgba(1, 1, 1, 1.5)",
+    border: "0.5px dashed #000000",
+    backgroundColor: "transparent",
     cursor: "pointer",
     fontSize: "16px",
     fontWeight: "bold",
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    width: "100%",
+    width: "auto", // Set width to auto to fit content
   };
 
   const headingStyle = {
     marginBottom: "20px",
-    color: "#cdd6f4",
-    fontSize: "24px", // Increased font size
+    color: "#ffffff",
+    fontSize: "30px",
   };
 
   const subheadingStyle = {
     fontWeight: "bold",
-    fontSize: "18px", // Increased font size
+    fontSize: "18px",
+  };
+
+  const uploadIconStyle = {
+    width: "50px",
+    height: "auto",
+    marginBottom: "10px",
+    opacity: 0.7,
+  };
+
+  const uploadTextStyle = {
+    color: "ffffff",
+    fontSize: "1.5em",
+    opacity: 0.8,
+  };
+
+  const handleDragOver = (event) => {
+    event.preventDefault();
+  };
+
+  const handleDrop = (event) => {
+    event.preventDefault();
+    const files = event.dataTransfer.files;
+    if (files.length > 0) {
+      setSelectedFile(files[0]);
+    }
+  };
+
+  const triggerFileInput = () => {
+    document.getElementById("image-upload").click();
   };
 
   return (
@@ -86,33 +120,32 @@ function ImageAnalysis() {
           🌿
         </span>
       </h2>
-      <div style={cardStyle}>
-        <div
-          style={{
-            marginBottom: "20px",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <span role="img" aria-label="camera" style={{ marginRight: "10px" }}>
-            📸
-          </span>
-          <span style={subheadingStyle}>Please Upload The Image</span>
-        </div>
+      <div
+        style={cardStyle}
+        onDragOver={handleDragOver}
+        onDrop={handleDrop}
+        onClick={triggerFileInput}
+      >
+        <img
+          src="https://t4.ftcdn.net/jpg/04/81/13/43/360_F_481134373_0W4kg2yKeBRHNEklk4F9UXtGHdub3tYk.jpg" 
+          alt="Upload Icon"
+          style={uploadIconStyle}
+        />
+        <p style={{ ...uploadTextStyle, color: "#ffffff" }}>
+  Drag and drop an image of a plant leaf to process
+</p>
         <input
           type="file"
+          id="image-upload"
           onChange={handleFileChange}
           accept="image/*"
           style={inputStyle}
         />
+      </div>
+      {selectedFile && <p>Selected file: {selectedFile.name}</p>}
+      <div style={buttonContainerStyle}>
         <button onClick={handlePredict} style={buttonStyle}>
-          <span
-            role="img"
-            aria-label="prediction"
-            style={{ marginRight: "10px" }}
-          >
-            🔹
+          <span role="img" aria-label="prediction" style={{ marginRight: "10px" }}>
           </span>
           Predict
         </button>
